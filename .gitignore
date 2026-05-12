@@ -1,4 +1,54 @@
+# Dependencies
 node_modules/
+.pnpm-store/
+
+# Package manager lockfiles (not committed for this repo)
 pnpm-lock.yaml
+
+# Build artifacts (dist/ is intentionally committed for npx installs)
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# Environment & secrets
 .env
+.env.*
+!.env.example
+
+# Local overrides
 *.local
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test / coverage output
+coverage/
+.nyc_output/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editor
+.vscode/settings.json
+.vscode/launch.json
+.idea/
+*.swp
+*.swo
+
+# MCP / Playwright tooling side-effects
+.playwright-mcp/
+
+# Temp
+*.tmp
+*.temp
+.cache/
