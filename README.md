@@ -42,12 +42,21 @@ CHANGEDETECTION_API_KEY=your-api-key
 
 ## MCP config
 
+### VS Code
+
+A `.vscode/mcp.json` is included in this repo. Open the folder in VS Code and the server is auto-discovered — no path changes needed. Update the `env` values for your instance.
+
+### Claude Desktop / other clients
+
+Use the `cwd` field so you only need to set the path to where you cloned the repo, not the full path to the script:
+
 ```json
 {
   "mcpServers": {
     "changedetection": {
       "command": "node",
-      "args": ["--experimental-strip-types", "/path/to/changedetection-mcp/src/server.ts"],
+      "args": ["--experimental-strip-types", "src/server.ts"],
+      "cwd": "/path/to/changedetection-mcp",
       "env": {
         "CHANGEDETECTION_URL": "http://localhost:5000",
         "CHANGEDETECTION_API_KEY": "your-api-key"
@@ -56,3 +65,5 @@ CHANGEDETECTION_API_KEY=your-api-key
   }
 }
 ```
+
+Replace `/path/to/changedetection-mcp` with wherever you cloned the repo (e.g. `C:\Users\you\projects\changedetection-mcp` on Windows or `/Users/you/code/changedetection-mcp` on macOS).
