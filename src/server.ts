@@ -107,7 +107,7 @@ const WatchFields = {
     .describe("Regex/text patterns — only fire notification when one matches"),
   ignore_text: z.array(z.string()).optional().describe("Patterns to ignore in diffs"),
   conditions: z
-    .array(z.record(z.unknown()))
+    .array(z.record(z.string(), z.unknown()))
     .optional()
     .describe("Advanced condition rule objects"),
   conditions_match_logic: z
@@ -127,7 +127,7 @@ const WatchFields = {
     .optional()
     .describe("Custom notification body (supports {{current_snapshot}}, {{diff}}, etc.)"),
   time_between_check: z
-    .record(z.number())
+    .record(z.string(), z.number())
     .optional()
     .describe("Dict like {hours: 1} or {minutes: 30}"),
   webdriver_delay: z
@@ -139,7 +139,7 @@ const WatchFields = {
     .optional()
     .describe("JavaScript to execute in the browser before capture"),
   browser_steps: z
-    .array(z.record(z.unknown()))
+    .array(z.record(z.string(), z.unknown()))
     .optional()
     .describe("Playwright-style automation steps array"),
   tags: z.array(z.string()).optional().describe("Tag UUIDs to assign"),
