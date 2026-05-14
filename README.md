@@ -16,7 +16,7 @@ Add to your user-level MCP config (`Preferences: Open User Settings (JSON)` → 
     "changedetection": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "github:mrshappy0/changedetection-mcp"],
+      "args": ["--prefer-online", "-y", "github:mrshappy0/changedetection-mcp"],
       "env": {
         "CHANGEDETECTION_URL": "http://your-instance:5000",
         "CHANGEDETECTION_API_KEY": "${input:changedetection-api-key}"
@@ -27,6 +27,8 @@ Add to your user-level MCP config (`Preferences: Open User Settings (JSON)` → 
 ```
 
 > The `${input:changedetection-api-key}` variable causes VS Code to prompt for the key once per session, so it never touches disk.
+>
+> `--prefer-online` tells npx to always check GitHub for the latest commit before starting, so you automatically get updates on every restart without having to clear your npx cache.
 
 ### Claude Desktop
 
@@ -37,7 +39,7 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
   "mcpServers": {
     "changedetection": {
       "command": "npx",
-      "args": ["-y", "github:mrshappy0/changedetection-mcp"],
+      "args": ["--prefer-online", "-y", "github:mrshappy0/changedetection-mcp"],
       "env": {
         "CHANGEDETECTION_URL": "http://your-instance:5000",
         "CHANGEDETECTION_API_KEY": "your-api-key"
@@ -174,3 +176,22 @@ pnpm build      # outputs to dist/ with shebang injected
 ```
 
 The `dist/` directory is committed to the repo so that `npx github:mrshappy0/changedetection-mcp` works without requiring a build step on the consumer side.
+
+### TypeScript / Node types
+
+The project requires `@types/node` to be listed explicitly in `tsconfig.json` under `compilerOptions.types`:
+
+```json
+"types": ["node"]
+```
+
+This is already configured in the repo. If you see `Cannot find name 'process'` errors after modifying `tsconfig.json`, ensure this entry is present.
+
+---
+
+## Dependencies
+
+| Package | Version | Notes |
+|---|---|---|
+| `@modelcontextprotocol/sdk` | `^1.12.0` | MCP server SDK |
+| `zod` | `^4.4.3` | Schema validation — uses `z.record(keySchema, valueSchema)` (Zod v4 API) |
